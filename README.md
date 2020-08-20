@@ -26,15 +26,15 @@ The directive in this package, `v-autofocus`, tries to be smart in the following
 As a package:
 
 ```shell script
-$ npm install vue-autofocus
+$ npm install @undecaf/vue-autofocus
     or
-$ yarn add vue-autofocus
+$ yarn add @undecaf/vue-autofocus
 ```
 
 Included as `<script>`:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vue-autofocus/dist/directives.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@undecaf/vue-autofocus/dist/directives.min.js"></script>
 ```
 
 

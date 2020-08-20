@@ -1,6 +1,6 @@
 {
-  "name": "vue-autofocus",
-  "version": "0.1.0",
+  "name": "@undecaf/vue-autofocus",
+  "version": "0.1.1",
   "description": "A smart Vue autofocus directive",
   "keywords": [
     "vue",

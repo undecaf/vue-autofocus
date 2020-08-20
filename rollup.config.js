@@ -13,7 +13,7 @@ function kebabToPascal(text) {
 }
 
 const argv = minimist(process.argv.slice(2))
-const name = kebabToPascal(pkg.name)
+const name = kebabToPascal(pkg.name.replace(/^(@.+?\/)?/, ''))
 
 const baseConfig = {
     plugins: {
