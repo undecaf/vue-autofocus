@@ -8,23 +8,27 @@ const autofocus = {
     },
 
     inserted(el, binding) {
+        let selector
+
         function canFocus(element) {
             element.focus && element.focus()
             return (document.activeElement === element)
         }
 
-        // Autofocus enabled?
-        if ((typeof binding.value === 'undefined') || binding.value) {
-            setTimeout(() => {
-                if (!canFocus(el)) {
-                    for (let e of el.querySelectorAll('*')) {
-                        if (canFocus(e)) {
-                            return
-                        }
+        function doFocus() {
+            if (selector !== '*' || !canFocus(el)) {
+                for (let e of el.querySelectorAll(selector)) {
+                    if (canFocus(e)) {
+                        return
                     }
                 }
+            }
+        }
 
-            }, focusDelay)
+        // Autofocus enabled?
+        if ((typeof binding.value === 'undefined') || binding.value) {
+            selector = (typeof binding.value === 'string') ? binding.value : '*'
+            setTimeout(doFocus, focusDelay)
         }
     },
 }

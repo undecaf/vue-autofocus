@@ -1,10 +1,10 @@
 {
   "name": "@undecaf/vue-autofocus",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A smart Vue autofocus directive",
   "keywords": [
     "vue",
-    "component",
+    "directive",
     "autofocus"
   ],
   "author": "F. Kasper <fkasper@modus-operandi.at>",

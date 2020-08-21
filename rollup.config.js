@@ -12,8 +12,12 @@ function kebabToPascal(text) {
     return text.replace(/(^\w|-\w)/g, t => t.replace(/-/, '').toUpperCase());
 }
 
+function unscoped(name) {
+    return name.replace(/^(@.+?\/)?/, '')
+}
+
 const argv = minimist(process.argv.slice(2))
-const name = kebabToPascal(pkg.name.replace(/^(@.+?\/)?/, ''))
+const name = kebabToPascal(unscoped(pkg.name))
 
 const baseConfig = {
     plugins: {

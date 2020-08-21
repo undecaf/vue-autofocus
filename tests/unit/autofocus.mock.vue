@@ -16,7 +16,7 @@
       <!-- Unfocusable elements -->
       <div><span>Not focusable</span></div>
       <img src="#">
-      <a></a>
+      <a />
       <input type="hidden">
       <input
         type="text"
@@ -65,11 +65,24 @@
         <option>Focused 3</option>
       </select>
 
-      <select>
-        <option>Not focused 1</option>
-        <option>Not focused 2</option>
-        <option>Not focused 3</option>
-      </select>
+      <div id="none-matching" v-autofocus="focusedId === 'none-matching' ? 'button' : false">
+        <div v-autofocus="focusedId === 'first-matching' ? '.outer .inner' : false">
+          <input type="text">
+          <div class="outer">
+            <textarea />
+            <div class="inner" />
+            <input
+              id="first-matching"
+              class="inner"
+              type="text"
+            >
+            <input
+              class="inner"
+              type="text"
+            >
+          </div>
+        </div>
+      </div>
 
       <div
         id="empty"

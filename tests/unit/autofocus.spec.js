@@ -52,27 +52,35 @@ describe('v-autofocus', () => {
         await validateFocused('input')
     })
 
-    it('focuses on <button v-autofocus="true">', async () => {
+    it('focuses on <button>', async () => {
         await validateFocused('button')
     })
 
-    it('focuses on <textarea v-autofocus="true">', async () => {
+    it('focuses on <textarea>', async () => {
         await validateFocused('textarea')
     })
 
-    it('focuses on <select v-autofocus="true">', async () => {
+    it('focuses on <select>', async () => {
         await validateFocused('select')
     })
 
-    it('focuses on the first focusable element inside a <div v-autofocus="true">', async () => {
+    it('focuses on the first focusable element inside a <div>', async () => {
         await validateFocused('first-focusable')
+    })
+
+    it('focuses on the first matching focusable element inside a <div>', async () => {
+        await validateFocused('first-matching')
+    })
+
+    it('focuses on <body> or nothing if no matching element inside a <div', async () => {
+        await validateFocused('none-matching', false)
     })
 
     it('focuses on <body> or nothing if no v-autofocus', async () => {
         await validateFocused('no-autofocus', false)
     })
 
-    it('does not focus on empty <div v-autofocus="true">', async () => {
+    it('does not focus on empty <div>', async () => {
         await validateFocused('empty', false)
     })
 })
