@@ -1,6 +1,8 @@
-// There are container components that manipulate the focus
-// _after_ their children have been inserted, therefore:
-const focusDelay = 50
+const defaults = {
+    enabled: true,      // if true then focus will be set when the element is inserted
+    selector: '*',      // focusable elements must match this in order to get focus
+    delay: 50,          // delay (in ms) until focus is set after the element was inserted
+}
 
 const autofocus = {
     install(Vue) {
@@ -8,7 +10,7 @@ const autofocus = {
     },
 
     inserted(el, binding) {
-        let selector
+        let options
 
         function canFocus(element) {
             element.focus && element.focus()
@@ -16,8 +18,8 @@ const autofocus = {
         }
 
         function doFocus() {
-            if (selector !== '*' || !canFocus(el)) {
-                for (let e of el.querySelectorAll(selector)) {
+            if (!el.matches(options.selector) || !canFocus(el)) {
+                for (let e of el.querySelectorAll(options.selector)) {
                     if (canFocus(e)) {
                         return
                     }
@@ -25,10 +27,36 @@ const autofocus = {
             }
         }
 
+        // Process directive value
+        const value = binding.value
+        if (typeof value === 'undefined') {
+            options = defaults
+
+        } else if (value && typeof value === 'object') {
+            Object.keys(value).forEach(opt => {
+                if (typeof defaults[opt] === 'undefined') {
+                    throw `Unknown option '${opt}'; known options: ${Object.keys(defaults).join(', ')}`
+                }
+            })
+            options = Object.assign({}, defaults, value)
+
+        } else if (typeof value === 'string') {
+            options = Object.assign({}, defaults, { selector: value })
+
+        } else if (typeof value === 'boolean') {
+            options = Object.assign({}, defaults, { enabled: value })
+
+        } else if (typeof value === 'number') {
+            options = Object.assign({}, defaults, { delay: value })
+        }
+
         // Autofocus enabled?
-        if ((typeof binding.value === 'undefined') || binding.value) {
-            selector = (typeof binding.value === 'string') ? binding.value : '*'
-            setTimeout(doFocus, focusDelay)
+        if (options.enabled) {
+            if (options.delay <= 0) {
+                doFocus()
+            } else {
+                setTimeout(doFocus, options.delay)
+            }
         }
     },
 }

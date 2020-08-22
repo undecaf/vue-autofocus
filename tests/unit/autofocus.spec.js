@@ -18,50 +18,65 @@ describe('v-autofocus', () => {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    async function validateFocused(focusedId, focused = true) {
+    async function validateFocused(focusedId, options, focused = true) {
         document.body.appendChild(container)
         wrapper = mount(AutofocusMock, {
             attachTo: container,
             propsData: {
                 focusedId,
+                options,
             }
         })
 
         await delay(100)
-        const target = wrapper.get(`#${focusedId || 'none'}`)
+        const target = wrapper.element.querySelector(`#${focusedId}`)
 
-        if (focused) {
-            expect(target.element).to.equal(document.activeElement)
+        if (target && focused) {
+            expect(target).to.equal(document.activeElement)
         } else {
             expect(! document.activeElement || document.activeElement === document.body).to.be.ok
         }
 
-        return target
+        wrapper.destroy()
     }
 
-    afterEach(() => {
-        wrapper.destroy()
+
+    it('uses defaults on <button v-autofocus="...">', async () => {
+        await validateFocused('options')
+        await validateFocused('options', {})
     })
 
-
-    it('focuses on <input v-autofocus>', async () => {
-        await validateFocused()
+    it('respects enabled on <button v-autofocus="...">', async () => {
+        await validateFocused('options', { enabled: true })
+        await validateFocused('options', true)
+        await validateFocused('options', { enabled: false }, false)
+        await validateFocused('options', false, false)
     })
 
-    it('focuses on <input v-autofocus="true">', async () => {
-        await validateFocused('input')
+    it('respects selector on <button v-autofocus="...">', async () => {
+        await validateFocused('options', { selector: 'button' })
+        await validateFocused('options', 'button')
+        await validateFocused('options', { selector: 'input' }, false)
+        await validateFocused('options', 'input', false)
     })
 
-    it('focuses on <button>', async () => {
-        await validateFocused('button')
+    it('respects delay on <button v-autofocus="...">', async () => {
+        await validateFocused('options', { delay: 0 })
+        await validateFocused('options', 0)
+        await validateFocused('options', { delay: 200 }, false)
+        await validateFocused('options', 200, false)
     })
 
-    it('focuses on <textarea>', async () => {
-        await validateFocused('textarea')
+    it('focuses on input elements', async () => {
+        await validateFocused('input-input')
+        await validateFocused('input-textarea')
+        await validateFocused('input-button')
+        await validateFocused('input-select')
     })
 
-    it('focuses on <select>', async () => {
-        await validateFocused('select')
+    it('focuses on contenteditable elements', async () => {
+        await validateFocused('editable-span')
+        await validateFocused('editable-div')
     })
 
     it('focuses on the first focusable element inside a <div>', async () => {
@@ -69,18 +84,18 @@ describe('v-autofocus', () => {
     })
 
     it('focuses on the first matching focusable element inside a <div>', async () => {
-        await validateFocused('first-matching')
+        await validateFocused('first-matching', 'div .focus-me')
     })
 
-    it('focuses on <body> or nothing if no matching element inside a <div', async () => {
-        await validateFocused('none-matching', false)
+    it('focuses on <body> or nothing if no matching element inside a <div>', async () => {
+        await validateFocused('first-matching', '.no-such-class', false)
+    })
+
+    it('does not focus on unfocusable elements', async () => {
+        await validateFocused('unfocusable', {}, false)
     })
 
     it('focuses on <body> or nothing if no v-autofocus', async () => {
-        await validateFocused('no-autofocus', false)
-    })
-
-    it('does not focus on empty <div>', async () => {
-        await validateFocused('empty', false)
+        await validateFocused('no-autofocus', {},false)
     })
 })
