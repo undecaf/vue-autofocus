@@ -4,7 +4,7 @@ module.exports = function(config) {
     config.set({
 
         // Base path for all patterns (eg. files, exclude)
-        basePath: "",
+        basePath: '',
 
         // Test frameworks (https://npmjs.org/browse/keyword/karma-adapter)
         frameworks: ['mocha', 'chai'],
@@ -44,7 +44,7 @@ module.exports = function(config) {
         // Show colors in reporter and log output
         colors: true,
 
-        // Log level: config.{LOG_DISABLE,LOG_ERROR,LOG_WARN,LOG_INFO,LOG_DEBUG
+        // Log level: config.{LOG_DISABLE,LOG_ERROR,LOG_WARN,LOG_INFO,LOG_DEBUG}
         logLevel: config.LOG_INFO,
 
         // Watch files and execute tests on change

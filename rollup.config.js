@@ -35,6 +35,7 @@ const baseConfig = {
         },
         postVue: [
             buble({
+                objectAssign: 'Object.assign',
                 transforms: {
                     dangerousForOf: true,
                 },
@@ -50,7 +51,7 @@ if (!argv.format || argv.format === 'es') {
     // ESM build to be used with webpack/rollup
     const esConfig = {
         ...baseConfig,
-        input: 'src/index.js',
+        input: 'src/autofocus/index.js',
         output: {
             file: pkg.module,
             format: 'esm',
@@ -83,7 +84,7 @@ if (!argv.format || argv.format === 'cjs') {
     // SSR build
     const umdConfig = {
         ...baseConfig,
-        input: 'src/index.js',
+        input: 'src/autofocus/index.js',
         output: {
             compact: true,
             file: pkg.main,
@@ -117,7 +118,7 @@ if (!argv.format || argv.format === 'iife') {
     // Browser build
     const unpkgConfig = {
         ...baseConfig,
-        input: 'src/wrapper.js',
+        input: 'src/autofocus/wrapper.js',
         output: {
             compact: true,
             file: pkg.unpkg,

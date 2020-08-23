@@ -1,11 +1,12 @@
 {
   "name": "@undecaf/vue-autofocus",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A smart Vue autofocus directive",
   "keywords": [
     "vue",
     "directive",
-    "autofocus"
+    "autofocus",
+    "dialog"
   ],
   "author": "F. Kasper <fkasper@modus-operandi.at>",
   "license": "MIT",
@@ -21,7 +22,7 @@
     "dist/*"
   ],
   "scripts": {
-    "prebuild": "rm -rf dist/",
+    "prebuild": "rm -rf dist/directives.*",
     "build": "NODE_ENV=production rollup --config rollup.config.js",
     "lint": "eslint '{src,tests}/**/*.{js,vue}'",
     "lint:fix": "eslint --fix '{src,tests}/**/*.{js,vue}'",
@@ -58,6 +59,7 @@
     "rollup-plugin-vue": "^5.0.0",
     "typeface-roboto": "0.0.75",
     "vue": "^2.6.11",
+    "vue-material": "^1.0.0-beta-15",
     "vue-template-compiler": "^2.6.11"
   },
   "peerDependencies": {

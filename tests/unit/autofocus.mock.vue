@@ -70,6 +70,9 @@
         type="text"
         disabled
       >
+      <div style="display: none;">
+        <button>Invisible</button>
+      </div>
       <!-- End of unfocusable elements -->
 
       <a
@@ -79,14 +82,38 @@
 
       <!-- Nested -->
       <div>
-        <input type="text">
+        <input
+          id="another-matching"
+          type="text"
+          class="another"
+        >
         <input
           id="first-matching"
           type="text"
-          class="focus-me"
+          class="first"
         >
       </div>
     </div>
+
+    <!-- -------------------------------------- -->
+
+    <md-dialog
+      v-if="focusedId === 'dialog'"
+      v-autofocus="options"
+      :md-active="true"
+    >
+        <input id="dialog" type="text">
+    </md-dialog>
+
+    <!-- -------------------------------------- -->
+
+    <md-dialog
+      v-if="focusedId === 'inactive-dialog'"
+      v-autofocus="options"
+      :md-active="false"
+    >
+      <input type="text">
+    </md-dialog>
 
     <!-- -------------------------------------- -->
 
@@ -118,25 +145,25 @@
 </template>
 
 <script>
-    export default {
-        name: "AutofocusMock",
+export default {
+    name: "AutofocusMock",
 
-        props: {
-            focusedId: {
-                type: String,
-                default: '',
-            },
-
-            options: {
-                type: undefined,
-                default: undefined,
-            },
+    props: {
+        focusedId: {
+            type: String,
+            default: '',
         },
 
-        data() {
-            return {
-                date: null,
-            }
+        options: {
+            type: undefined,
+            default: undefined,
+        },
+    },
+
+    data() {
+        return {
+            date: null,
         }
+    },
 }
 </script>
