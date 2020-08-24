@@ -1,7 +1,7 @@
 import Vue from "vue"
 import VueMaterial from 'vue-material'
 import autofocus from '@/../dist/directives.esm'
-import App from "@/components/App.vue"
+import Test from "@/components/Test.vue"
 import "@/main.css"
 
 
@@ -13,5 +13,5 @@ Vue.use(autofocus)
 
 new Vue({
     el: "#app",
-    render: h => h(App),
+    render: h => h(Test),
 })

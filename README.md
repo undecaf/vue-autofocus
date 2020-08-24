@@ -1,5 +1,11 @@
 # A smart Vue autofocus directive
 
+![Minified size](https://badgen.net/bundlephobia/min/@undecaf/vue-autofocus)
+![Open issues](https://badgen.net/github/open-issues/undecaf/vue-autofocus)
+![Dependents](https://badgen.net/npm/dependents/@undecaf/vue-autofocus)
+![Total downloads](https://badgen.net/npm/dt/@undecaf/vue-autofocus)
+![License](https://badgen.net/github/license/undecaf/vue-autofocus)
+
 
 The directive in this package, `v-autofocus`, tries to be smart in the following ways:
 
@@ -13,7 +19,7 @@ The directive in this package, `v-autofocus`, tries to be smart in the following
     [Vue Material Autocomplete](https://vuematerial.io/components/autocomplete).
 +   Since there are container components that manipulate the focus _after_ their children have been
     inserted (e.g. the [Vue Material Dialog](https://vuematerial.io/components/dialog)),
-    `v-autofocus` acts with a small delay (50&nbsp;ms) by default. This delay is [configurable](#configuration).
+    `v-autofocus` can act with some delay (50&nbsp;ms by default). The delay is [configurable](#configuration).
 +   The focus can also be set [in response to child events](#configuration), e.g. when a dialog is
     (re-)opened. 
 +   The directive [can be disabled](#configuration).
@@ -23,7 +29,7 @@ Please note: in this context, an element is considered "focusable" if it can bec
 This includes `contenteditable` elements.
 
 Focusable elements become non-focusable only if hidden or having attribute `disabled`.
-Elements with _any_ `tabindex` value [are focusable](https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute).
+Elements with _any_ integer `tabindex` value [are at least click focusable](https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute).
 
 
 ## Installation
@@ -63,18 +69,18 @@ The configuration object supports the following properties:
 
 | Name | Type | Effect | Default |
 |------|------|--------|---------|
-| `enabled` | `Boolean` | Enables the function of the directive if truthy. | `true` |
+| `enabled` | `Boolean` | Enables the directive if truthy. | `true` |
 | `selector` | `String` | Only an element matching this selector can receive the focus. | `'*'` |
-| `on` | `String` or `Array<String>` | Child event(s) triggering auto-focusing in addition to setting the focus initially.  | `[]` |
-| `delay` | `Number` | Delay (in ms) until focus is set after the trigger event.<br>`delay: 0` sets the focus synchronously with the trigger event. | `50` |
+| `on` | `String` or `Array<String>` | Child event(s) that re-trigger auto-focusing.  | `[]` |
+| `delay` | `Number` | Delay (in ms) until the focus is set.<br>A value of `0` sets the focus synchronously with the trigger event. | `50` |
 
 
 If a primitive value is specified rather than an object then the type determines which option it applies to:
 `Boolean`&nbsp;→&nbsp;`enabled`, `String`&nbsp;→&nbsp;`selector`, `Array`&nbsp;→&nbsp;`on`, `Number`&nbsp;→&nbsp;`delay`.
 
-Options can be dynamic; changes to `on` take effect immediately, all other options need a child event
+Options can be dynamic; changes to `on` take effect immediately, all other changes become noticeable only after a child event
 (e.g. [`'hook:updated'`](https://twitter.com/DamianDulisz/status/981549658571968512) or
-[`'md-opened'`](https://vuematerial.io/components/dialog)) until they become noticeable.
+[`'md-opened'`](https://vuematerial.io/components/dialog)).
 
 ### Examples
 
@@ -126,8 +132,8 @@ Auto-focusing on the input inside a [Vue Material Datepicker](https://vuemateria
 <md-datepicker v-autofocus v-model="birthdate" :md-open-on-focus="false" />
 ```
 
-Setting the focus on the first input element of an [Vue Material Dialog](https://vuematerial.io/components/dialog)
-whenever the dialog is (re-)opened (the selector is mandatory since the dialog container is
+Setting the focus on the first input of a [Vue Material Dialog](https://vuematerial.io/components/dialog)
+whenever the dialog is (re-)opened (a selector is required since the dialog container is
 focusable):
 
 ```html
@@ -136,7 +142,7 @@ focusable):
 </md-dialog>
 ```
 
-This will have no effect:
+This will have no effect whatsoever:
 
 ```html
 <div v-autofocus>

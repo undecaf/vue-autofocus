@@ -65,9 +65,11 @@ describe('v-autofocus', () => {
     This kind of failure occurs if wrapper.setProps() or wrapper.setData() was called
     or if a property or data was set implicitly.
 
-    it('focuses on the first focusable element inside an initially active<md-dialog>', async () => {
+    it('focuses on the first focusable element inside an initially active <md-dialog>', async () => {
         await validateId('dialog', {})
     })
+
+    <md-dialog v-autofocus> is now being tested by E2E tests.
 */
 
     it('uses defaults on <button v-autofocus="...">', async () => {

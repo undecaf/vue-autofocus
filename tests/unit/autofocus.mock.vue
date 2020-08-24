@@ -102,7 +102,10 @@
       v-autofocus="options"
       :md-active="true"
     >
-        <input id="dialog" type="text">
+      <input
+        id="dialog"
+        type="text"
+      >
     </md-dialog>
 
     <!-- -------------------------------------- -->

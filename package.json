@@ -1,6 +1,6 @@
 {
   "name": "@undecaf/vue-autofocus",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A smart Vue autofocus directive",
   "keywords": [
     "vue",
@@ -22,12 +22,13 @@
     "dist/*"
   ],
   "scripts": {
-    "prebuild": "rm -rf dist/directives.*",
+    "prebuild": "rimraf dist/directives.*",
     "build": "NODE_ENV=production rollup --config rollup.config.js",
+    "serve": "vue-cli-service serve",
     "lint": "eslint '{src,tests}/**/*.{js,vue}'",
-    "lint:fix": "eslint --fix '{src,tests}/**/*.{js,vue}'",
+    "lint:fix": "npm run lint -- --fix",
     "test:unit": "karma start",
-    "serve": "vue-cli-service serve"
+    "test:e2e": "testcafe"
   },
   "dependencies": {},
   "devDependencies": {
@@ -55,10 +56,12 @@
     "material-icons-font": "^2.1.0",
     "mocha": "^8.1.1",
     "npm-check-updates": "^7.0.2",
+    "rimraf": "^3.0.2",
     "rollup": "^2.6.1",
     "rollup-plugin-css-only": "^2.1.0",
     "rollup-plugin-terser": "^7.0.0",
     "rollup-plugin-vue": "^5.0.0",
+    "testcafe": "^1.9.1",
     "typeface-roboto": "0.0.75",
     "vue": "^2.6.11",
     "vue-material": "^1.0.0-beta-15",
