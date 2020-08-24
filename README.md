@@ -96,7 +96,7 @@ Conditional autofocus:
 <input type="text" v-autofocus="{ enabled: active }">  <!-- or: autofocus="Boolean(active)" -->
 ```
 
-Focusing on the first focusable child:
+Focusing on the first focusable descendant:
 
 ```html
 <div v-autofocus>
@@ -108,13 +108,13 @@ Focusing on the first focusable child:
   <input type="text" disabled>
 
   <div>
-    <!-- First focusable child, nested -->
+    <!-- First focusable descendant -->
     <textarea v-model="comment"></textarea>
   </div>    
 </div>
 ```
 
-Focusing on the first focusable child that matches a selector:
+Focusing on the first focusable descendant that matches a selector:
 
 ```html
 <div autofocus="{ selector: '.focus-me' }">  <!-- or:  v-autofocus="'.focus-me'" -->
