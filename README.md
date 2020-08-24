@@ -2,7 +2,6 @@
 
 ![Minified size](https://badgen.net/bundlephobia/min/@undecaf/vue-autofocus)
 ![Open issues](https://badgen.net/github/open-issues/undecaf/vue-autofocus)
-![Dependents](https://badgen.net/npm/dependents/@undecaf/vue-autofocus)
 ![Total downloads](https://badgen.net/npm/dt/@undecaf/vue-autofocus)
 ![License](https://badgen.net/github/license/undecaf/vue-autofocus)
 
@@ -153,4 +152,6 @@ This will have no effect whatsoever:
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT)
+Software: [MIT](http://opensource.org/licenses/MIT)
+
+Documentation: [CC-BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
