@@ -11,12 +11,6 @@ body, .md-app {
     height: 100%;
 }
 
-.truncate, .truncate * {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 *:focus {
     background-color: greenyellow !important;
 }
