@@ -69,17 +69,18 @@ The configuration object supports the following properties:
 | Name | Type | Effect | Default |
 |------|------|--------|---------|
 | `enabled` | `Boolean` | Enables the directive if truthy. | `true` |
-| `selector` | `String` | Only an element matching this selector can receive the focus. | `'*'` |
+| `selector` | `String` | Only an element matching this selector can receive the focus, starting with the element on which this directive is placed. | `'*'` |
 | `on` | `String` or `Array<String>` | Child event(s) that re-trigger auto-focusing.  | `[]` |
 | `delay` | `Number` | Delay (in ms) until the focus is set.<br>A value of `0` sets the focus synchronously with the trigger event. | `50` |
 
 
-If a primitive value is specified rather than an object then the type determines which option it applies to:
+If a value is specified that is not an object then its type determines which option it applies to:
 `Boolean`&nbsp;→&nbsp;`enabled`, `String`&nbsp;→&nbsp;`selector`, `Array`&nbsp;→&nbsp;`on`, `Number`&nbsp;→&nbsp;`delay`.
 
-Options can be dynamic; changes to `on` take effect immediately, all other changes become noticeable only after a child event
+The configuration can be modified after binding; changes to `on` take effect immediately, all other changes become noticeable only after a child event
 (e.g. [`'hook:updated'`](https://twitter.com/DamianDulisz/status/981549658571968512) or
 [`'md-opened'`](https://vuematerial.io/components/dialog)).
+
 
 ### Examples
 

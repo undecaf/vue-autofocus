@@ -1,3 +1,29 @@
+/*
+
+The MIT License (MIT)
+
+Copyright (c) 2020-present Ferdinand Kasper <fkasper@modus-operandi.at>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/
+
 const defaults = {
     on: [],             // child event(s) on which to trigger the autofocus action
     enabled: true,      // enables the function of the directive if truthy
@@ -73,6 +99,32 @@ function focus(el, vnode) {
     }
 }
 
+// Deep object comparison
+function equals(val1, val2) {
+    function size(val) {
+        return (val && typeof val === 'object') ? Object.keys(val).length : -1
+    }
+
+    const size1 = size(val1)
+
+    if (size1 < 0) {
+        // At least one non-object, requires strict equality
+        return val1 === val2
+
+    } else if (size(val2) !== size1) {
+        // Two objects/arrays with differing numbers of properties/elements
+        return false
+
+    } else if (Array.isArray(val1)) {
+        // At least one array, requires array comparison
+        return Array.isArray(val2) && val1.every((el, index) => equals(el, val2[index]))
+
+    } else {
+        // Two objects with the same number of properties
+        return Object.keys(val1).every(k => equals(val1[k], val2[k]))
+    }
+}
+
 function cleanup(vnode) {
     if (vnode.$autofocus) {
         vnode.context.$off(vnode.$autofocus.on.filter(ev => ev !== self))
@@ -96,10 +148,16 @@ const autofocus = {
 
     update(el, binding, vnode, oldVnode) {
         if (vnode !== oldVnode) {
-            cleanup(oldVnode)
-        }
+            if (equals(binding.value, binding.oldValue)) {
+                // Options unchanged, just move them
+                vnode.$autofocus = oldVnode.$autofocus
 
-        setOptions(el, binding, vnode)
+            } else {
+                // Regenerate options
+                cleanup(oldVnode)
+                setOptions(el, binding, vnode)
+            }
+        }
     },
 
     unbind(el, binding, vnode) {
