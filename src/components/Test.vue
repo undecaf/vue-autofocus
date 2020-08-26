@@ -50,7 +50,7 @@
       <div>
         <md-dialog
           v-autofocus="options"
-          :md-active="showDialog"
+          :md-active.sync="showDialog"
         >
           <md-dialog-title>Test dialog</md-dialog-title>
 
