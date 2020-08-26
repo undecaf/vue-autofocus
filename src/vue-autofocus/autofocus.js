@@ -105,6 +105,12 @@ function equals(val1, val2) {
         return (val && typeof val === 'object') ? Object.keys(val).length : -1
     }
 
+    if (val1 instanceof Function) {
+        // Compare the source code
+        return (val2 instanceof Function) && (val1.toString() === val2.toString())
+
+    }
+
     const size1 = size(val1)
 
     if (size1 < 0) {
