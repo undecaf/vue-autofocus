@@ -2,11 +2,12 @@
 
 ![Minified size](https://badgen.net/bundlephobia/min/@undecaf/vue-autofocus)
 ![Open issues](https://badgen.net/github/open-issues/undecaf/vue-autofocus)
+![Vulnerabilities](https://snyk.io/test/npm/@undecaf/vue-autofocus/badge.svg)
 ![Total downloads](https://badgen.net/npm/dt/@undecaf/vue-autofocus)
 ![License](https://badgen.net/github/license/undecaf/vue-autofocus)
 
 
-The directive in this package, `v-autofocus`, tries to be smart in the following ways:
+This directive, `v-autofocus`, tries to be smart in the following ways:
 
 +   When placed on a non-focusable element (such as a `<div>`) or a Vue component, 
     it will focus on the first focusable descendant. Descendants are scanned in document order.
@@ -16,19 +17,22 @@ The directive in this package, `v-autofocus`, tries to be smart in the following
     [Vue Material Datepicker](https://vuematerial.io/components/datepicker),
     [Vue Material Chips](https://vuematerial.io/components/datepicker) and
     [Vue Material Autocomplete](https://vuematerial.io/components/autocomplete).
-+   Since there are container components that manipulate the focus _after_ their children have been
-    inserted (e.g. the [Vue Material Dialog](https://vuematerial.io/components/dialog)),
-    `v-autofocus` can act with some delay (50&nbsp;ms by default). The delay is [configurable](#configuration).
++   `v-autofocus` can act [with some delay](#configuration) in order to be compatible with container components
+    that manipulate the focus _after_ their children have been inserted (e.g. the 
+    [Vue Material Dialog](https://vuematerial.io/components/dialog)),
 +   The focus can also be set [in response to child events](#configuration), e.g. when a dialog is
     (re-)opened. 
 +   The directive [can be disabled](#configuration).
-    
+
+A simple example [is available here](https://undecaf.github.io/vue-autofocus/example/)
+([example source code](https://github.com/undecaf/vue-autofocus/blob/master/src/components/Demo.vue)).
+
 Please note: in this context, an element is considered "focusable" if it can become the
 [`document.activeElement`](https://developer.mozilla.org/en-US/docs/Web/API/DocumentOrShadowRoot/activeElement).
 This includes `contenteditable` elements.
 
 Focusable elements become non-focusable only if hidden or having attribute `disabled`.
-Elements with _any_ integer `tabindex` value [are at least click focusable](https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute).
+Elements with _any_ integer `tabindex` [are at least click focusable](https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute).
 
 
 ## Installation
@@ -66,8 +70,8 @@ value at all. Unspecified options get default values.
 
 The configuration object supports the following properties:
 
-| Name | Type | Effect | Default |
-|------|------|--------|---------|
+| Name | Type | Description | Default |
+|------|------|-------------|---------|
 | `enabled` | `Boolean` | Enables the directive if truthy. | `true` |
 | `selector` | `String` | Only an element matching this selector can receive the focus, starting with the element on which this directive is placed. | `'*'` |
 | `on` | `String` or `Array<String>` | Child event(s) that re-trigger auto-focusing.  | `[]` |

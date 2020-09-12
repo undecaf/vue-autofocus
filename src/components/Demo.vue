@@ -6,7 +6,7 @@
   >
     <md-app-toolbar class="md-primary md-dense md-layout md-alignment-center-space-between">
       <div class="md-layout-item md-title">
-        Testing &lt;md-dialog v-autofocus&gt;
+        &lt;md-dialog v-autofocus&gt; demo
       </div>
 
       <md-button
@@ -44,7 +44,7 @@
 
     <md-app-content>
       <h3>
-        The buttons open a dialog, setting the focus on the indicated element
+        The buttons open a dialog, setting the focus on <span class="focused">the coloured element</span>
       </h3>
 
       <div>

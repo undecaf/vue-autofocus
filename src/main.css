@@ -11,7 +11,7 @@ body, .md-app {
     height: 100%;
 }
 
-*:focus {
+*:focus, .focused {
     background-color: greenyellow !important;
 }
 
