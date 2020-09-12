@@ -24,7 +24,7 @@ This directive, `v-autofocus`, tries to be smart in the following ways:
     (re-)opened. 
 +   The directive [can be disabled](#configuration).
 
-A simple example [is available here](https://undecaf.github.io/vue-autofocus/example/)
+A simple online example [is available here](https://undecaf.github.io/vue-autofocus/example/)
 ([example source code](https://github.com/undecaf/vue-autofocus/blob/master/src/components/Demo.vue)).
 
 Please note: in this context, an element is considered "focusable" if it can become the

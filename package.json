@@ -25,6 +25,7 @@
     "prebuild": "rimraf dist/directives.*",
     "build": "NODE_ENV=production rollup --config rollup.config.js",
     "postbuild": "node terser.js dist/directives.*.js",
+    "prebuild:example": "rimraf docs/example",
     "build:example": "vue-cli-service build --dest docs/example",
     "serve": "vue-cli-service serve",
     "lint": "eslint '{src,tests}/**/*.{js,vue}'",
