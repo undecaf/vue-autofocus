@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { MdDialog } from 'vue-material/dist/components'
 import { mount } from '@vue/test-utils'
 
-import autofocus from '@/../dist/directives.esm'
+import autofocus from '@/..'
 import AutofocusMock from './autofocus.mock.vue'
 
 

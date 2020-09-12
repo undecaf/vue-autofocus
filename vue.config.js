@@ -8,11 +8,8 @@ const common = {
         },
     },
 
-    chainWebpack: config => {
-        config.plugins.delete('friendly-errors')
+    chainWebpack(config) {
     },
-
-    productionSourceMap: false,
 }
 
 const configs = {
@@ -23,8 +20,12 @@ const configs = {
                 rules: [
                     {
                         use: ['source-map-loader'],
-                        test: /\.js$/,
                         enforce: 'pre',
+                        test: /\.js$/,
+                        exclude: [
+                            // Avoid warnings about sourcemaps that are missing in some packages
+                            RegExp('/vue-material/'),
+                        ],
                     },
                 ],
             },
@@ -51,6 +52,7 @@ function extend(common, configureWebpack = {}, chainWebpack = () => {}) {
             ...common.configureWebpack,
             ...configureWebpack,
         },
+
         chainWebpack: config => {
             common.chainWebpack(config)
             chainWebpack(config)
